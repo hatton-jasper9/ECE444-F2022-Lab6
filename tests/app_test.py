@@ -1,11 +1,11 @@
 import pytest
-import os
 import json
 from pathlib import Path
 
 from project.app import app, db
 
 TEST_DB = "test.db"
+
 
 @pytest.fixture
 def client():
@@ -17,6 +17,7 @@ def client():
     db.create_all()  # setup
     yield app.test_client()  # tests run here
     db.drop_all()  # teardown
+
 
 def login(client, username, password):
     """Login helper function"""
@@ -60,6 +61,7 @@ def test_login_logout(client):
     rv = login(client, app.config["USERNAME"], app.config["PASSWORD"] + "x")
     assert b"Invalid password" in rv.data
 
+
 def test_messages(client):
     """Ensure that user can post messages"""
     login(client, app.config["USERNAME"], app.config["PASSWORD"])
@@ -72,6 +74,7 @@ def test_messages(client):
     assert b"&lt;Hello&gt;" in rv.data
     assert b"<strong>HTML</strong> allowed here" in rv.data
 
+
 def test_delete_message(client):
     """Ensure the messages are being deleted"""
     rv = client.get("/delete/1")
@@ -82,17 +85,19 @@ def test_delete_message(client):
     data = json.loads(rv.data)
     assert data["status"] == 1
 
+
 def test_search(client):
     """Ensure user can search posts"""
     response = client.get("/search/", content_type="html/text")
     assert response.status_code == 200
 
+
 def test_login_required(client):
     rv = client.get("/delete/1")
     assert b"Please log in" in rv.data
     data = json.loads(rv.data)
-    assert data['status'] == 0
-    assert data['message'] == 'Please log in.'
+    assert data["status"] == 0
+    assert data["message"] == "Please log in."
     assert rv.status_code == 401
     login(client, app.config["USERNAME"], app.config["PASSWORD"])
     rv = client.get("/delete/1")
