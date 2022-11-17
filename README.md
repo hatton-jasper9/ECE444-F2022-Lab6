@@ -2,6 +2,12 @@
 
 Code taken from https://github.com/mjhea0/flaskr-tdd
 
+## Education Pathways Tests
+
+[test_update_rating](https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-6-lambda/blob/3820037722a7b9d93863431f61a8351f9a970148/Education_Pathways/tests/test_app.py#L82-L99)
+
+[test_update_comment](https://github.com/ECE444-2022Fall/project-1-web-application-design-education-pathways-group-6-lambda/blob/3820037722a7b9d93863431f61a8351f9a970148/Education_Pathways/tests/test_app.py#L103-L110)
+
 ## Test Driven Development
 
 ### Benefits
